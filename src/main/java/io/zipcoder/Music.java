@@ -1,6 +1,7 @@
 package io.zipcoder;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class Music {
 
@@ -15,22 +16,22 @@ public class Music {
         int clicksDown =0;
         int clicksup =0;
         int loopclicks= 0;
+        TreeSet<Integer> clicks = new TreeSet<>();
         for(int i = 0; i < playList.length; i++) {
             if (selection.equals(playList[i])) {
                 if (startIndex < i) {
                     clicksDown = i - startIndex;
-
+                    clicks.add(clicksDown);
                 } else if (i < startIndex) {
                     clicksup = startIndex - i;
+                    clicks.add(clicksup);
                 }
             }
             loopclicks = (startIndex) + ((playList.length) - i);
+            clicks.add(loopclicks);
         }
-        if (clicksup == loopclicks) {
-            return clicksup;
-        } else if (clicksDown == loopclicks)
-            return clicksDown;
-        return loopclicks;
+
+        return clicks.first();
     }
 
 
